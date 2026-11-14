@@ -59,9 +59,12 @@
 &lt;/p&gt;</code></pre>
         <button type="button" class="secondary" data-copy="clickHtml" aria-label="Copy code: click prepared HTML">Copy code</button>
         <h3>JavaScript being taught · <code>js/demo-click.js</code></h3>
-        <pre><code id="clickJs">const button = document.querySelector('#specialButton');
+        <pre><code id="clickJs">// These IDs connect this JavaScript to the button and paragraph in index.html.
+const button = document.querySelector('#specialButton');
 const message = document.querySelector('#specialMessage');
 
+// Wait for the HTML button to be clicked, then replace the paragraph's words.
+// Its appearance stays controlled by CSS; JavaScript changes only the text.
 button.addEventListener('click', function () {
   message.textContent = 'Tomato soup';
 });</code></pre>
@@ -104,11 +107,14 @@ button.addEventListener('click', function () {
 }</code></pre>
         <button type="button" class="secondary" data-copy="stylingCss" aria-label="Copy code: styling prepared CSS">Copy code</button>
         <h3>JavaScript being taught · <code>js/demo-styling.js</code></h3>
-        <pre><code id="stylingJs">const nameInput = document.querySelector('#guestName');
+        <pre><code id="stylingJs">// These IDs connect this JavaScript to the input and preview paragraph in index.html.
+const nameInput = document.querySelector('#guestName');
 const greeting = document.querySelector('#greeting');
 
+// Check the field whenever its text changes; CSS uses the class to change the paragraph's look.
 nameInput.addEventListener('input', function () {
   const hasText = nameInput.value !== '';
+  // Add the CSS class when there are characters; remove it when the field is empty.
   greeting.classList.toggle('has-name', hasText);
 });</code></pre>
         <button type="button" class="secondary" data-copy="stylingJs" aria-label="Copy code: styling JavaScript">Copy code</button>
@@ -143,7 +149,8 @@ nameInput.addEventListener('input', function () {
       <details class="code-panel">
         <summary>Show code</summary>
         <h3>JavaScript being taught · the seven-line decision</h3>
-        <pre><code id="validationDecision">if (field.value.trim() === '') {
+        <pre><code id="validationDecision">// Put an error in the HTML message and mark the field for its invalid CSS style.
+if (field.value.trim() === '') {
   error.textContent = 'Enter your name.';
   field.setAttribute('aria-invalid', 'true');
 } else {
@@ -174,14 +181,18 @@ nameInput.addEventListener('input', function () {
         <details>
           <summary>Full setup</summary>
           <h3>Event listeners and local submit · <code>js/demo-validation.js</code></h3>
-          <pre><code id="validationJs">const field = document.querySelector('#name');
+          <pre><code id="validationJs">// These IDs connect the form, field, error message, and status message in index.html.
+const field = document.querySelector('#name');
 const error = document.querySelector('#nameError');
 const form = document.querySelector('#nameForm');
 const formStatus = document.querySelector('#formStatus');
 
+// Recheck the field as the learner types and clear any old submit message.
 field.addEventListener('input', function () {
   formStatus.textContent = '';
 
+  // Ignore spaces at the ends. The error text appears in #nameError; CSS hides
+  // it when empty, and styles the input when aria-invalid is true.
   if (field.value.trim() === '') {
     error.textContent = 'Enter your name.';
     field.setAttribute('aria-invalid', 'true');
@@ -191,15 +202,18 @@ field.addEventListener('input', function () {
   }
 });
 
+// Handle the HTML form's submit event so this local classroom demo does not navigate away.
 form.addEventListener('submit', function (event) {
   event.preventDefault();
   formStatus.textContent = '';
 
+  // A bad submission shows the same error and puts the cursor back in the field.
   if (field.value.trim() === '') {
     error.textContent = 'Enter your name.';
     field.setAttribute('aria-invalid', 'true');
     field.focus();
   } else {
+    // A good submission clears the error and reports the result without sending data.
     error.textContent = '';
     field.setAttribute('aria-invalid', 'false');
     formStatus.textContent = 'Name checked. Demo only: nothing sent.';
