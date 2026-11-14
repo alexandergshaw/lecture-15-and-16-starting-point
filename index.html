@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOM Manipulation &amp; Events · Lectures 15 &amp; 16</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./js/demo-click.js" defer></script>
+  <script src="./js/demo-styling.js" defer></script>
+  <script src="./js/demo-validation.js" defer></script>
+  <script src="./js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to demonstration</a>
+  <header class="site-header">
+    <div class="page-width">
+      <p class="eyebrow">Lectures 15 &amp; 16 · Classroom Demonstrations</p>
+      <h1>DOM Manipulation &amp; Events</h1>
+      <p>Watch one action change one part of the page.</p>
+    </div>
+  </header>
+
+  <nav class="page-width demo-nav" aria-label="Demonstrations">
+    <a href="#click" aria-current="location">Slide 8 · Change text</a>
+    <a href="#styling">Slide 13 · Change a class</a>
+    <a href="#validation">Slide 19 · Show an error</a>
+  </nav>
+
+  <main id="main" class="page-width" tabindex="-1">
+    <noscript><p>Enable JavaScript to use these demonstrations. The code references remain readable below.</p></noscript>
+
+    <section id="click" class="demo" aria-labelledby="clickTitle">
+      <p class="slide">Slide 8</p>
+      <h2 id="clickTitle">Change One Paragraph</h2>
+      <p>JavaScript selects the button and paragraph. The event listener waits for a click. When the click happens, the handler changes the paragraph’s text.</p>
+      <p class="instruction"><strong>Try it:</strong> Click “Show today’s special” and watch the paragraph.</p>
+
+      <div class="example" aria-label="Click demonstration">
+        <button id="specialButton" type="button">Show today’s special</button>
+        <p id="specialMessage" role="status">Choose a special.</p>
+      </div>
+      <ul class="explanation">
+        <li><strong>Selected elements:</strong> the button receives the action; the paragraph receives the new text.</li>
+        <li><strong>Click event:</strong> the listener waits until the button is activated.</li>
+        <li><strong>Visible update:</strong> <code>textContent</code> changes the words without reloading.</li>
+      </ul>
+
+      <button type="button" class="secondary" data-reset="click">Reset this demo</button>
+      <details class="code-panel">
+        <summary>Show code</summary>
+        <h3>Prepared HTML</h3>
+        <pre><code id="clickHtml">&lt;button id="specialButton" type="button"&gt;
+  Show today’s special
+&lt;/button&gt;
+
+&lt;p id="specialMessage" role="status"&gt;
+  Choose a special.
+&lt;/p&gt;</code></pre>
+        <button type="button" class="secondary" data-copy="clickHtml" aria-label="Copy code: click prepared HTML">Copy code</button>
+        <h3>JavaScript being taught · <code>js/demo-click.js</code></h3>
+        <pre><code id="clickJs">const button = document.querySelector('#specialButton');
+const message = document.querySelector('#specialMessage');
+
+button.addEventListener('click', function () {
+  message.textContent = 'Tomato soup';
+});</code></pre>
+        <button type="button" class="secondary" data-copy="clickJs" aria-label="Copy code: click JavaScript">Copy code</button>
+      </details>
+    </section>
+
+    <section id="styling" class="demo" aria-labelledby="stylingTitle">
+      <p class="slide">Slide 13</p>
+      <h2 id="stylingTitle">Change a Style While Typing</h2>
+      <p>The input event runs when the field changes. JavaScript reads the current value and decides whether the paragraph should have a CSS class. The CSS defines how that class looks.</p>
+      <p class="instruction"><strong>Try it:</strong> Type a name, then delete every character and compare the paragraph’s style.</p>
+
+      <div class="example" aria-label="Styling demonstration">
+        <label for="guestName">Your name</label>
+        <input id="guestName" type="text">
+        <p id="greeting">Your greeting preview</p>
+        <p id="classStatus" role="status">Class absent: the field is empty.</p>
+      </div>
+      <p>The <code>has-name</code> class is present when the field contains any characters, including spaces. The words in the paragraph stay the same.</p>
+
+      <button type="button" class="secondary" data-reset="styling">Reset this demo</button>
+      <details class="code-panel">
+        <summary>Show code</summary>
+        <h3>Prepared HTML</h3>
+        <pre><code id="stylingHtml">&lt;label for="guestName"&gt;Your name&lt;/label&gt;
+&lt;input id="guestName" type="text"&gt;
+
+&lt;p id="greeting"&gt;Your greeting preview&lt;/p&gt;</code></pre>
+        <button type="button" class="secondary" data-copy="stylingHtml" aria-label="Copy code: styling prepared HTML">Copy code</button>
+        <h3>Prepared CSS · two states</h3>
+        <pre><code id="stylingCss">#greeting {
+  padding: 1rem;
+  border: 2px solid #526c7b;
+}
+
+#greeting.has-name {
+  background: #d9f4e8;
+  border-color: #006e60;
+}</code></pre>
+        <button type="button" class="secondary" data-copy="stylingCss" aria-label="Copy code: styling prepared CSS">Copy code</button>
+        <h3>JavaScript being taught · <code>js/demo-styling.js</code></h3>
+        <pre><code id="stylingJs">const nameInput = document.querySelector('#guestName');
+const greeting = document.querySelector('#greeting');
+
+nameInput.addEventListener('input', function () {
+  const hasText = nameInput.value !== '';
+  greeting.classList.toggle('has-name', hasText);
+});</code></pre>
+        <button type="button" class="secondary" data-copy="stylingJs" aria-label="Copy code: styling JavaScript">Copy code</button>
+      </details>
+    </section>
+
+    <section id="validation" class="demo" aria-labelledby="validationTitle">
+      <p class="slide">Slide 19</p>
+      <h2 id="validationTitle">One Error Appears and Clears</h2>
+      <p>The condition checks whether the name is empty after surrounding spaces are ignored. An empty value gets an explanation. A useful value clears that explanation and the invalid state.</p>
+      <p class="instruction"><strong>Try it:</strong> Check an empty name, then type a name to clear the error.</p>
+
+      <div class="example" aria-label="Validation demonstration">
+        <p>This demo checks a name. It does not send a message.</p>
+        <form id="nameForm" novalidate>
+          <label for="name">Name (required)</label>
+          <input
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+            aria-describedby="nameError"
+          >
+          <p id="nameError"></p>
+          <button type="submit">Check name</button>
+          <p id="formStatus" role="status"></p>
+        </form>
+      </div>
+      <p><code>trim()</code> ignores surrounding spaces here. A spaces-only name is empty for this check. Correcting the name clears the error as you type.</p>
+
+      <button type="button" class="secondary" data-reset="validation">Reset this demo</button>
+      <details class="code-panel">
+        <summary>Show code</summary>
+        <h3>JavaScript being taught · the seven-line decision</h3>
+        <pre><code id="validationDecision">if (field.value.trim() === '') {
+  error.textContent = 'Enter your name.';
+  field.setAttribute('aria-invalid', 'true');
+} else {
+  error.textContent = '';
+  field.setAttribute('aria-invalid', 'false');
+}</code></pre>
+        <button type="button" class="secondary" data-copy="validationDecision" aria-label="Copy code: validation decision">Copy code</button>
+        <h3>Prepared HTML</h3>
+        <pre><code id="validationHtml">&lt;p&gt;This demo checks a name. It does not send a message.&lt;/p&gt;
+
+&lt;form id="nameForm" novalidate&gt;
+  &lt;label for="name"&gt;Name (required)&lt;/label&gt;
+  &lt;input
+    id="name"
+    name="name"
+    required
+    autocomplete="name"
+    aria-describedby="nameError"
+  &gt;
+
+  &lt;p id="nameError"&gt;&lt;/p&gt;
+
+  &lt;button type="submit"&gt;Check name&lt;/button&gt;
+
+  &lt;p id="formStatus" role="status"&gt;&lt;/p&gt;
+&lt;/form&gt;</code></pre>
+        <button type="button" class="secondary" data-copy="validationHtml" aria-label="Copy code: validation prepared HTML">Copy code</button>
+        <details>
+          <summary>Full setup</summary>
+          <h3>Event listeners and local submit · <code>js/demo-validation.js</code></h3>
+          <pre><code id="validationJs">const field = document.querySelector('#name');
+const error = document.querySelector('#nameError');
+const form = document.querySelector('#nameForm');
+const formStatus = document.querySelector('#formStatus');
+
+field.addEventListener('input', function () {
+  formStatus.textContent = '';
+
+  if (field.value.trim() === '') {
+    error.textContent = 'Enter your name.';
+    field.setAttribute('aria-invalid', 'true');
+  } else {
+    error.textContent = '';
+    field.setAttribute('aria-invalid', 'false');
+  }
+});
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  formStatus.textContent = '';
+
+  if (field.value.trim() === '') {
+    error.textContent = 'Enter your name.';
+    field.setAttribute('aria-invalid', 'true');
+    field.focus();
+  } else {
+    error.textContent = '';
+    field.setAttribute('aria-invalid', 'false');
+    formStatus.textContent = 'Name checked. Demo only: nothing sent.';
+  }
+});</code></pre>
+          <button type="button" class="secondary" data-copy="validationJs" aria-label="Copy code: validation full setup">Copy code</button>
+        </details>
+      </details>
+    </section>
+    <p id="copyStatus" class="copy-status" role="status"></p>
+  </main>
+  <footer class="page-width">
+    <p>Explain → demonstrate → show code → try one change → reset.</p>
+  </footer>
+</body>
+</html>

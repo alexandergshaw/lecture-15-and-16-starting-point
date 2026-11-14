@@ -1,0 +1,178 @@
+:root {
+  color-scheme: light;
+  --navy: #0A1F32;
+  --dark-blue: #102C3A;
+  --teal: #008F88;
+  --paper: #F8FAFA;
+  --gold: #F2BF73;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--navy);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+[hidden] { display: none !important; }
+
+.page-width {
+  width: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+}
+
+.site-header {
+  padding: 2rem 0;
+  background: var(--navy);
+  color: var(--paper);
+  border-bottom: 5px solid var(--teal);
+}
+
+.eyebrow, .slide { font-weight: 700; }
+.eyebrow { color: var(--gold); }
+h1, h2, h3 { line-height: 1.25; overflow-wrap: anywhere; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); margin: .5rem 0; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.4rem); margin: .25rem 0 1rem; }
+h3 { font-size: 1.25rem; margin-top: 1.5rem; }
+p { margin: .75rem 0; }
+
+.demo-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  padding-block: 1.5rem;
+}
+
+.demo-nav a {
+  color: var(--dark-blue);
+  background: white;
+  border: 2px solid #526c7b;
+  border-radius: .35rem;
+  padding: .65rem 1rem;
+  text-underline-offset: .2em;
+  font-weight: 650;
+}
+
+.demo-nav a[aria-current] {
+  background: var(--dark-blue);
+  color: white;
+  border-color: var(--dark-blue);
+}
+
+.demo {
+  background: white;
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid #b8c7cd;
+  border-radius: .5rem;
+  scroll-margin-top: 1rem;
+}
+
+.slide { margin-top: 0; color: #006e60; }
+.instruction {
+  padding: .75rem 1rem;
+  border-left: 5px solid var(--gold);
+  background: var(--paper);
+}
+
+.example {
+  margin-block: 1.5rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--paper);
+  border: 1px solid #b8c7cd;
+  border-radius: .35rem;
+}
+
+button, input { font: inherit; }
+button {
+  padding: .65rem 1rem;
+  color: white;
+  background: var(--dark-blue);
+  border: 2px solid var(--dark-blue);
+  border-radius: .35rem;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+button:hover { background: var(--navy); }
+button.secondary {
+  color: var(--dark-blue);
+  background: white;
+  border-color: #526c7b;
+}
+button.secondary:hover { background: #e7eff1; }
+label { display: block; margin-bottom: .4rem; font-weight: 650; }
+input {
+  display: block;
+  width: min(100%, 28rem);
+  min-width: 0;
+  padding: .65rem;
+  color: var(--navy);
+  background: white;
+  border: 2px solid #526c7b;
+  border-radius: .25rem;
+}
+
+:focus-visible {
+  outline: 3px solid #006e60;
+  outline-offset: 4px;
+}
+.site-header :focus-visible { outline-color: var(--gold); }
+input[aria-invalid="true"] {
+  border: 3px solid #9b2534;
+  background: #fff3f3;
+}
+#nameError { color: #9b2534; font-weight: 700; }
+#nameError:empty, #formStatus:empty, .copy-status:empty { display: none; }
+#formStatus { font-weight: 650; }
+#specialMessage { font-size: 1.5rem; font-weight: 650; }
+
+#greeting {
+  padding: 1rem;
+  border: 2px solid #526c7b;
+}
+
+#greeting.has-name {
+  background: #d9f4e8;
+  border-color: #006e60;
+}
+
+#classStatus { font-size: 1.1rem; }
+.explanation { padding-left: 1.5rem; }
+.explanation li { margin-bottom: .5rem; }
+.code-panel { margin-top: 1.5rem; border-top: 1px solid #b8c7cd; padding-top: 1rem; }
+summary { cursor: pointer; font-weight: 700; width: fit-content; padding: .4rem; }
+.code-panel details { margin-top: 1.5rem; }
+code { font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", Consolas, monospace; }
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--navy);
+  color: var(--paper);
+  padding: 1rem;
+  border-radius: .35rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.copy-status { padding: 1rem; border-left: 5px solid var(--teal); }
+footer { padding-block: 1.5rem; font-size: 1.1rem; }
+.skip-link {
+  position: absolute;
+  max-width: calc(100% - 2rem);
+  left: 1rem;
+  top: -10rem;
+  padding: .75rem;
+  background: white;
+  color: var(--navy);
+  z-index: 1;
+}
+.skip-link:focus { top: 1rem; }
+
+@media (max-width: 36rem) {
+  .demo-nav { flex-direction: column; }
+  .demo-nav a { text-align: center; }
+}
